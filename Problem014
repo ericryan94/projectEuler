@@ -1,0 +1,40 @@
+public class p4 {
+	
+    public static void main(String[] args) {
+    	
+    	long start =System.currentTimeMillis();//start timer, right before program
+    	
+        final int MAX = 1000000;//max number in loop        
+        int longestChain = 1;//chain length start at 1        
+        int result = 0;//number result start at 0
+        int cache[] = new int[MAX];//int array for cache, size of MAX
+        
+        for (int n = 2; n < MAX; n++) {//loop length of MAX
+        	
+            int terms = 0;//temp "longest chain" for loop
+            
+            long m = n;//value at n in loop convert to long
+            
+            while (m >= n) {
+            	
+                m = (m % 2 == 0) ? m / 2 : 3 * m + 1;// the iterative sequence
+                
+                terms=terms+1;//add 1 to terms
+            }
+            
+            terms += cache[(int)m]; //add iterative sequence at m to array for cache
+            
+            cache[n] = terms;// checks array
+            
+            if (terms > longestChain) {//if bigger than previous 
+            	
+                longestChain = terms+1;//added to final chain length
+                
+                result = n;//value at n added to result
+            }
+        }
+        
+        System.out.println(result+" "+longestChain);
+    	System.out.println(System.currentTimeMillis() - start+"m/s");//stop + print timer
+    }
+}
